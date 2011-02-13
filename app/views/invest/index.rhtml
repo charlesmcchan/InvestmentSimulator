@@ -1,0 +1,27 @@
+<br/>
+<h2>Investment</h2>
+<table border="1">
+	<th width="100px">id</th>
+	<th width="100px">account_id</th>
+	<th width="200px">name</th>
+	<th width="100px">kind</th>
+	<th width="100px">currency</th>
+	<th width="100px"></th>
+	<% Account.where(:user_id=>User.name2id(session[:user])).each {|account| %>
+		<% Invest.where(:account_id=>account.id).each {|invest| %>
+		<tr>
+			<td align="center"><%= invest.id %></td>
+			<td align="center"><%= invest.account_id %></td>
+			<td align="center"><%= invest.name %></td>
+			<td align="center"><%= invest.kind %></td>
+			<td align="center"><%= invest.currency %></td>
+			<td align="center">
+				<%= form_tag("/invest/history", :method=>"post", :id=>invest.id) do %>
+				  <%= hidden_field_tag(:invest_id, invest.id) %>
+					<a href="javascript:document.getElementById(<%= invest.id %>).submit();">History</a>
+				<% end %>
+			</td>
+		</tr>
+		<% } %>
+	<% } %>
+</table>

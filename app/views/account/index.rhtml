@@ -1,0 +1,14 @@
+<br/>
+<h2>Account</h2>
+<table border="1">
+	<th width="100px">id</th>
+	<th width="100px">currency</th>
+	<th width="100px">count</th>
+	<% Account.where(:user_id=>User.name2id(session[:user])).each {|account| %>
+	<tr>
+		<td align="center"><%= account.id %></td>
+		<td align="center"><%= account.currency %></td>
+		<td align="center"><%= account.count %></td>
+	</tr>
+	<% } %>
+</table>

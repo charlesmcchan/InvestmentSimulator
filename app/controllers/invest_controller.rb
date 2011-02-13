@@ -1,0 +1,2 @@
+class InvestController < ApplicationController
+end

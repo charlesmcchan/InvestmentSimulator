@@ -1,0 +1,113 @@
+<br/>
+<% if params[:invest_id] != nil %>
+	<%= link_to('Back to Investment', '/invest') %>
+	<br/>
+	
+	<!-- show invest information --!>
+	<h2>Investment</h2>
+	<table border="1">
+		<th width="100px">id</th>
+		<th width="100px">account_id</th>
+		<th width="200px">name</th>
+		<th width="100px">kind</th>
+		<th width="100px">currency</th>
+		<% Invest.where(:id=>params[:invest_id]).each {|invest| %>
+			<tr>
+				<td align="center"><%= invest.id %></td>
+				<td align="center"><%= invest.account_id %></td>
+				<td align="center"><%= invest.name %></td>
+				<td align="center"><%= invest.kind %></td>
+				<td align="center"><%= invest.currency %></td>
+			</tr>
+		<% } %>
+	</table>
+	<br/>
+	
+	<!-- show invest history record --!>
+	<h2>History</h2>
+	<table border="1">
+		<th width="100px">id</th>
+		<th width="100px">local currency price</th>
+		<th width="100px">foreign currency price</th>
+		<th width="100px">exchange rate</th>
+		<th width="100px">unit</th>
+		<th width="100px">price per unit</th>
+		<th width="100px">commission charge</th>
+		<th width="200px">timestamp</th>
+		<%
+			totalLocal = 0
+			totalForeign = 0
+			totalUnit = 0
+		%>
+		<% 
+			History.where(:invest_id=>params[:invest_id]).order(:timestamp).each {|history|
+				totalLocal += history.local.round(4)
+				foreign = (history.rate!=0) ? (history.local/history.rate).round(2) : 0
+				totalForeign += foreign
+				totalUnit += history.unit.round(4)
+		%>
+		<tr>
+			<td align="center"><%= history.id %></td>
+			<td align="center"><%= history.local %></td>
+			<td align="center"><%= foreign %></td>
+			<td align="center"><%= history.rate %></td>
+			<td align="center"><%= history.unit %></td>
+			<td align="center"><%= history.price %></td>
+			<td align="center"><%= history.commission %></td>
+			<td align="center"><%= history.timestamp.localtime %></td>
+		</tr>
+		<% } %>
+	</table>
+	<br/>
+	
+	<!-- show invest statistic result --!>
+	<h2>Statistic</h2>
+	<h3>Cost</h3>
+	<table border="1">
+		<th width="100px">total local price</th>
+		<th width="100px">total foreign price</th>
+		<th width="100px">total unit</th>
+		<th width="100px">averge price per unit</th>	
+		<tr>
+			<td align="center"><%= totalLocal = totalLocal.to_i %></td>
+			<td align="center"><%= totalForeign.round(2) %></td>
+			<td align="center"><%= totalUnit %></td>
+			<td align="center"><%= (totalForeign/totalUnit).round(4) %></td>
+		</tr>
+	</table>
+	
+	<h3>Gain</h3>
+	<table border="1">
+		<th width="100px">current local price</th>
+		<th width="100px">current exchange rate</th>
+		<th width="100px">current price per unit</th>
+		<tr>
+			<%
+				currentPrice = 0
+				currentRate = 0
+			%>
+			<td align="center"><%= currentLocal = (currentPrice*currentRate*totalUnit).to_i %></td>
+			<td align="center"><%= currentRate %></td>
+			<td align="center"><%= currentPrice %></td>
+		</tr>
+	</table>
+	
+	<h3>Performance</h3>
+	<table border="1">
+		<th width="100px">local currency</th>
+		<th width="100px">average performance</th>
+		<tr>
+			<td align="center"><%= diff = currentLocal-totalLocal %></td>
+			<td align="center"><%= ((diff.to_f/totalLocal) * 10**4).to_i.to_f / 10**2 %>%</td>
+		</tr>
+	</table>
+	
+	<!-- calculation tools --!>
+	<h2>Tools</h2>
+	
+<% else %>
+	<script>
+		alert("Error: Access violation");
+		history.go(-1)
+	</script>
+<% end %>
