@@ -1,7 +1,11 @@
 class User < ActiveRecord::Base
 	set_table_name 'user'
 	
-	def self.name2id name
-		return self.where(:username=>name).first.id
+	def self.email2id email
+		return self.where(:email=>email).first.id
+	end
+	
+	def self.email2nick email
+		return self.where(:email=>email).first.nickname
 	end
 end

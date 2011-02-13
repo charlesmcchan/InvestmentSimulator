@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110213064816) do
+ActiveRecord::Schema.define(:version => 20110213085020) do
 
   create_table "account", :force => true do |t|
     t.integer "user_id",                                                :null => false
@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(:version => 20110213064816) do
   end
 
   create_table "user", :force => true do |t|
-    t.string "username", :limit => 128, :null => false
     t.string "password", :limit => 128, :null => false
     t.string "nickname", :limit => 128, :null => false
     t.string "email",    :limit => 128, :null => false
