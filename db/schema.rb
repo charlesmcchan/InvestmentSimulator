@@ -35,6 +35,22 @@ ActiveRecord::Schema.define(:version => 20110213085020) do
     t.string  "currency",   :limit => 128, :null => false
   end
 
+  create_table "quote_histories", :force => true do |t|
+    t.string   "quote_id"
+    t.float    "price"
+    t.string   "currency"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "quotes", :force => true do |t|
+    t.string   "quote_id"
+    t.string   "name"
+    t.string   "quote_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "user", :force => true do |t|
     t.string "password", :limit => 128, :null => false
     t.string "nickname", :limit => 128, :null => false
