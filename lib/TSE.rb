@@ -1,6 +1,5 @@
 # encoding: utf-8
 require 'rubygems'
-require 'nokogiri'
 require 'mechanize'
 
 module TSE
@@ -26,6 +25,20 @@ module TSE
     end
 
     stocks
-	end
+  end
+
+  # Get price quote for specific TSE stock ID
+  def self.quote(stock_id)
+    m = Mechanize.new
+    src = m.get("http://finance.google.com/finance/info?client=ig&q=TPE:#{stock_id}").body
+    data = JSON.parse(src[3..-1])[0]
+    {
+      :quote_id => data["t"],
+      :price => data["l"],
+      :currency => "NTD",
+      :time => DateTime.parse(data["lt"]),
+      :quote_type => "TSE"
+    }
+  end
 	
 end
