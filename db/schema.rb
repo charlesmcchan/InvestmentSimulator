@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110213064816) do
+ActiveRecord::Schema.define(:version => 20110213064818) do
 
   create_table "account", :force => true do |t|
     t.integer "user_id",                                                :null => false
@@ -33,6 +33,22 @@ ActiveRecord::Schema.define(:version => 20110213064816) do
     t.string  "name",       :limit => 128, :null => false
     t.string  "kind",       :limit => 128, :null => false
     t.string  "currency",   :limit => 128, :null => false
+  end
+
+  create_table "quote_histories", :force => true do |t|
+    t.string   "quote_id"
+    t.float    "price"
+    t.string   "currency"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "quotes", :force => true do |t|
+    t.string   "quote_id"
+    t.string   "name"
+    t.string   "quote_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user", :force => true do |t|
