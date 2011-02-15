@@ -1,0 +1,21 @@
+<br/>
+<h2>Quote</h2>
+<table border="1">
+	<th width="100px">quote_id</th>
+	<th width="200px">name</th>
+	<th width="100px">quote_type</th>
+	<th width="100px"></th>
+	<% Quote.find(:all, :order=>'ABS(quote_id)').each {|quote| %>
+		<tr>
+			<td align="center"><%= quote.quote_id %></td>
+			<td align="center"><%= quote.name %></td>
+			<td align="center"><%= quote.quote_type %></td>
+			<td align="center">
+				<%= form_tag("/quote/history", :method=>"post", :id=>quote.id) do %>
+					<%= hidden_field_tag(:quote_id, quote.id) %>
+					<a href="javascript:document.getElementById(<%= quote.id %>).submit();">History</a>
+				<% end %>
+			</td>
+		</tr>
+	<% } %>
+</table>

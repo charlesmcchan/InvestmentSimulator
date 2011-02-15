@@ -19,6 +19,9 @@
 			<h3><%= link_to('Home', '/') %></h3>
 			<h3><%= link_to('Account', '/account') if session[:user] != nil %></h3>
 			<h3><%= link_to('Investment', '/invest') if session[:user] != nil %></h3>
+			<hr/>
+			
+			<h3><%= link_to('Quote', '/quote') if session[:user] != nil %></h3>
 		</div>
 		<div id="content">
 			<%= yield %>
