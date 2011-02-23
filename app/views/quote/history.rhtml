@@ -1,0 +1,46 @@
+<br/>
+<% if params[:quote_id] != nil %>
+	<%= link_to('Back to Quote', '/quote') %>
+	<br/>
+	
+	<!-- show quote information --!>
+	<h2>Quote</h2>
+	<table border="1">
+		<th width="100px">quote_id</th>
+		<th width="200px">name</th>
+		<th width="100px">quote_type</th>
+		<% Quote.where(:id=>params[:quote_id]).order('ABS(quote_id)').each {|quote| %>
+			<tr>
+				<td align="center"><%= quote.quote_id %></td>
+				<td align="center"><%= quote.name %></td>
+				<td align="center"><%= quote.quote_type %></td>
+			</tr>
+		<% } %>
+	</table>
+	<br/>
+	
+	<!-- show quote history record --!>
+	<h2>History</h2>
+	<table border="1">
+		<th width="100px">price</th>
+		<th width="100px">currency</th>
+		<th width="200px">created_at</th>
+		
+		<% 
+			QuoteHistory.where(:quote_id=>params[:quote_id]).order(:created_at).each {|qs|
+		%>
+		<tr>
+			<td align="center"><%= qs.price %></td>
+			<td align="center"><%= qs.currency %></td>
+			<td align="center"><%= qs.created_at %></td>
+		</tr>
+		<% } %>
+	</table>
+	<br/>
+	
+<% else %>
+	<script>
+		alert("Error: Access violation");
+		history.go(-1)
+	</script>
+<% end %>

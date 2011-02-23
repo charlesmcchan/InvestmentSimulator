@@ -7,7 +7,7 @@
 	<th width="100px">kind</th>
 	<th width="100px">currency</th>
 	<th width="100px"></th>
-	<% Account.where(:user_id=>User.name2id(session[:user])).each {|account| %>
+	<% Account.where(:user_id=>User.email2id(session[:user])).each {|account| %>
 		<% Invest.where(:account_id=>account.id).each {|invest| %>
 		<tr>
 			<td align="center"><%= invest.id %></td>

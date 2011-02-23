@@ -81,14 +81,19 @@
 		<th width="100px">current local price</th>
 		<th width="100px">current exchange rate</th>
 		<th width="100px">current price per unit</th>
+		<th width="100px"></th>
 		<tr>
 			<%
-				currentPrice = 0
-				currentRate = 0
+				currentPrice = (params[:currentPrice]!=nil) ? params[:currentPrice].to_f : 0
+				currentRate = (params[:currentRate]!=nil) ? params[:currentRate].to_f : 0
 			%>
 			<td align="center"><%= currentLocal = (currentPrice*currentRate*totalUnit).to_i %></td>
-			<td align="center"><%= currentRate %></td>
-			<td align="center"><%= currentPrice %></td>
+			<%= form_tag("/invest/history", :method => "post") do %>
+				<%= hidden_field_tag(:invest_id, params[:invest_id]) %>	 
+				<td align="center"><%= text_field_tag(:currentPrice, currentPrice) %></td>
+				<td align="center"><%= text_field_tag(:currentRate, currentRate) %></td>
+				<td align="center"><%= submit_tag('Update') %></td> 
+			<% end %>
 		</tr>
 	</table>
 	

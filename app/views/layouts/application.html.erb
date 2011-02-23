@@ -9,15 +9,19 @@
 		<div id="menu">
 			<h2><%= controller.controller_name %>/<%= controller.action_name %></h2>
 			<% if session[:user] != nil then %>
-				<h3><%= 'Hello, ' + session[:user] %><br/><%= link_to 'Logout', '/home/logout' %></h3>
+				<h3><%= 'Hello, ' + User.email2nick(session[:user]) %><br/><%= link_to 'Logout', '/home/logout' %></h3>
 			<% else %>
 				<h3><%= link_to('Login', '/home/login') %></h3>
+				<h3><%= link_to('Register', '/home/register') %></h3>
 			<% end %>
 			<hr/>
 
 			<h3><%= link_to('Home', '/') %></h3>
 			<h3><%= link_to('Account', '/account') if session[:user] != nil %></h3>
 			<h3><%= link_to('Investment', '/invest') if session[:user] != nil %></h3>
+			<hr/>
+			
+			<h3><%= link_to('Quote', '/quote') if session[:user] != nil %></h3>
 		</div>
 		<div id="content">
 			<%= yield %>

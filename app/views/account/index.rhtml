@@ -4,7 +4,7 @@
 	<th width="100px">id</th>
 	<th width="100px">currency</th>
 	<th width="100px">count</th>
-	<% Account.where(:user_id=>User.name2id(session[:user])).each {|account| %>
+	<% Account.where(:user_id=>User.email2id(session[:user])).each {|account| %>
 	<tr>
 		<td align="center"><%= account.id %></td>
 		<td align="center"><%= account.currency %></td>

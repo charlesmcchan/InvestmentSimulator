@@ -1,0 +1,32 @@
+<br/>
+<% if session[:user] == nil %>
+	<%= form_tag("/home/register", :method => "post") do %>
+		<table>
+			<tr>
+				<td><%= label_tag(:email, "Email:") %></td>
+				<td><%= text_field_tag(:email) %></td>
+			</tr>
+			<tr>
+				<td><%= label_tag(:password, "Password:") %></td>
+				<td><%= password_field_tag(:password) %></td>
+			</tr>
+			<tr>
+				<td><%= label_tag(:confirm, "Confirm Password:") %></td>
+				<td><%= password_field_tag(:confirm) %></td>
+			</tr>
+			<tr>
+				<td><%= label_tag(:nickname, "Nickname:") %></td>
+				<td><%= text_field_tag(:nickname) %></td>
+			</tr>
+			<tr>
+				<td><%= submit_tag("Register") %></td>
+				<td><b><%= @status %></b></td>
+			</tr>
+		</table>
+	<% end %>
+<% else %>
+	<script>
+		alert("Error: Access violation");
+		history.go(-1)
+	</script>
+<% end %>
