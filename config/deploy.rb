@@ -1,3 +1,5 @@
+require 'bundler/capistrano'
+
 set :application, "InvestmentSimulator"
 set :repository,  "git@github.com:rascov/InvestmentSimulator.git"
 
