@@ -10,6 +10,8 @@ role :db,  "altum.itsze.ro", :primary => true
 set :user, 'invest'
 set :deploy_to, '/home/invest/src'
 
+after "deploy:update_code", "db:symlink"
+
 namespace :deploy do
   task :start do ; end
   task :stop do ; end
@@ -18,6 +20,8 @@ namespace :deploy do
   end
 end
 
-task :after_update_code do
-  run "ln -nfs #{deploy_to}/#{shared_dir}/config/database.yml #{release_path}/config/database.yml"
+namespace :db do
+  task :symlink do
+    run "ln -nfs #{deploy_to}/#{shared_dir}/config/database.yml #{release_path}/config/database.yml"
+  end
 end
