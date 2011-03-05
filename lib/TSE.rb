@@ -30,15 +30,15 @@ module TSE
     # ETF
     src = open('http://mis.twse.com.tw/data/TCB0.csv').read
     sids = CSV.parse(src).flatten
-    stocks << sids.map do |sid|
+    stocks.concat(sids.map do |sid|
       src = open("http://mis.twse.com.tw/data/#{sid}.csv").read
       arr = CSV.parse(src.encode('UTF-8', :replace => '')).flatten
       arr[-1] = "恒中國" if sid == "0080"
       arr[-1] = "恒香港" if sid == "0081"
       [sid, arr[-1]]
-    end
+    end)
 
-    stocks.flatten
+    stocks
   end
 
   # Get price quote for specific TSE stock ID

@@ -7,3 +7,5 @@ gem 'mysql2'
 # for fetch info and parsing
 gem 'mechanize'
 gem 'nokogiri'
+
+gem 'capistrano'
